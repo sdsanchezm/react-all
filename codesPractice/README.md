@@ -18,6 +18,4 @@ The tutorial has not been finished yet, but definitively is a good starting.
 
 * LEarning and historical purposes
 
-### Who do I talk to? ###
 
-* For now, private repo
