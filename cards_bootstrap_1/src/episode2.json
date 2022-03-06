@@ -1,0 +1,45 @@
+{
+    "results": [
+        {
+            "id": 1,
+            "name": "Pilot",
+            "air_date": "Dec 2, 2013",
+            "episode": "Ax1",
+            "characters": "Rick",
+            "url": "https://google.com"
+        },
+        {
+            "id": 2,
+            "name": "Lawnmover Dog",
+            "air_date": "Dec 12, 2013",
+            "episode": "Ax2",
+            "characters": "Morty",
+            "url": "https://google.de"
+        },
+        {
+            "id": 3,
+            "name": "Anatomy Park",
+            "air_date": "Dec 29, 2013",
+            "episode": "Ax3",
+            "characters": "Beth",
+            "url": "https://google.de"
+        },
+        {
+            "id": 4,
+            "name": "Jubilee Park",
+            "air_date": "Jan 29, 2014",
+            "episode": "Aj4",
+            "characters": "Rick and Beth",
+            "url": "https://google.no"
+        },
+        {
+            "id": 5,
+            "name": "Wake Up moon",
+            "air_date": "Feb 29, 2014",
+            "episode": "Ak5",
+            "characters": "Rick and Morty",
+            "url": "https://google.nz"
+        }
+
+    ]
+}
