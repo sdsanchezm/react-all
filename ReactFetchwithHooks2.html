@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"></script>
+
+    <title>fetch with react hooks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .title {
+          color: green;
+        }
+    </style>
+</head>
+<body>
+<h1 class="title">fetch</h1>
+<hr>
+<br>
+<div id="container">
+  <div id="app"></div>
+</div>
+
+<script type="text/babel">
+
+  function App(){
+
+  const [counter, setCounter] = React.useState(0);
+  const [user, setUser] = React.useState([]);
+
+  const url1 = `https://rickandmortyapi.com/api/character/1`;
+
+  React.useEffect(() => {
+    axios.get(url1).then( response => {
+    setUser(response.data);
+    console.log(response.data);
+    console.log("asd");
+  });
+}, []);
+
+return (
+  <div>
+    {counter}{" "}
+    <button onClick={()=> {setCounter( counter + 1 )}} >Increase</button>
+  </div>
+)
+
+}
+
+  ReactDOM.render(<App />, document.querySelector('#app'))
+</script>
+
+</body>
+</html>
