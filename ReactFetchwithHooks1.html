@@ -28,27 +28,57 @@
   function App(){
 
   const [postId, setPostId] = React.useState(null)
+  const [counter, setCounter] = React.useState(null)
 
   React.useEffect(() => {
 
-    const requestOptions = {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json' },
-    body: JSON.stringify({ textpost: "this is a text test"})
-  };
+      const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Cookie': 'sessionid=thisIsATestNotRealToken',
+        'Content-Type': 'application/json',
+        'Host': '127.0.0.1:8000',
+        'User-Agent': 'PostmanRuntime/7.29.2',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Origin': '*'
+      },
+      body: JSON.stringify({ textpost: "this is a text test"})
+    };
 
   const url1 = `https://rickandmortyapi.com/api/character/1`;
   const url2 = `http://127.0.0.1:8000/test`;
 
   fetch(url2, requestOptions)
     .then(response => response.json())
-    .then(data => setPostId(data.textpost))
+    .then(data => {
+    setPostId(data);
+    console.log(data);
+  })
 
 }, []);
+
+function k1(){
+    const url4 = `https://rickandmortyapi.com/api/character/1`;
+    const url5 = `http://127.0.0.1:8000/test`;
+
+    fetch(url5, {
+    mode: 'cors',
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .then(data => {
+    setCounter(counter + 1);
+    console.log(data);
+  })
+}
 
   return (
     <div>
       <p>{postId}</p>
+      <p>{counter}</p>
+      <button onClick={k1}>this is get</button>
     </div>
   )
 }
