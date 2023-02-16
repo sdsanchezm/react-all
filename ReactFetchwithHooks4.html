@@ -30,6 +30,7 @@
     function App(){
 
         const [name, setName] = React.useState("no name");
+        const [origin, setOrigin] = React.useState("no origin");
         const [number, setNumber] = React.useState(0);
 
         function handleForm1(event){
@@ -47,6 +48,7 @@
                 }
                 else {
                     setName(data.name);
+                    setOrigin(data.origin.name)
                 }
 
             })
@@ -58,6 +60,7 @@
                 <input value={number} onChange={ (e) => setNumber(e.target.value) } />
                 <button>get name</button>
                 <h1>{name}</h1>
+                <h1>{origin}</h1>
             </form>
 
         )
