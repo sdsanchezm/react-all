@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <title>pagination with react hooks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .title {
+          color: purple;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">pagination</h1>
+    <hr>
+    <br>
+    <div id="container">
+        <div id="app"></div>
+    </div>
+
+<script type="text/babel">
+
+    function Testingx({name, testfunc}){
+
+        return (
+            <div>
+                <p>name: {name}</p>
+                <button onClick={testfunc}> click </button>
+            </div>
+        )
+    }
+    
+    function App(){
+
+        const [number, setNumber] = React.useState(1);
+
+        const x1 = [{
+                name: "asd",
+                status: "alive",
+                species: "human",
+                universe: "solar sys"
+            },
+            {
+                name: "qwe",
+                status: "deseaced",
+                species: "martian",
+                universe: "mercury sys"
+
+            },
+            {
+                name: "zxc",
+                status: "deseaced",
+                species: "alien",
+                universe: "mars sys"
+
+            },
+            {
+                name: "q123",
+                status: "alive",
+                species: "alien",
+                universe: "mercury sys"
+
+            },
+            {
+                name: "a123",
+                status: "alive",
+                species: "human",
+                universe: "mercury sys"
+
+            },
+            {
+                name: "z123",
+                status: "deseaced",
+                species: "martian",
+                universe: "venus sys"
+
+            }
+        ]
+        
+        function testfunc(){
+            console.log("testfunc");
+        }
+
+        const handleClick = (e) => {
+            e.preventDefault();
+            setNumber(number + 1)
+            console.log('You clicked plus.');
+        }
+
+        return (
+            <div>
+                <Testingx name="jamecho" testfunc={testfunc} number={number} />
+                <button onClick={handleClick}>plus</button>
+                <button onClick={handleClick}>more</button>
+                <h1>{number}</h1>
+            </div>
+        )
+
+    }
+
+    ReactDOM.render(<App />, document.querySelector('#app'));
+
+</script>
+
+</body>
+</html>
