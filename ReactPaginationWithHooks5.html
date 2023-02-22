@@ -56,8 +56,8 @@
         let i = 0;
         for(i = 1; i <= elementsInArray; i++){
             pagesArray1.push(i);
-            console.log(`i: ${i}`);
-            console.log(`pagesArray1 ${pagesArray1[i]}`);
+            // console.log(`i: ${i}`);
+            // console.log(`pagesArray1 ${pagesArray1[i]}`);
         }
         
         console.log(pagesArray1);
@@ -65,12 +65,12 @@
         return (
             <div>
                 <nav class="pagination" role="navigation" aria-label="pagination">
-                    <a class="pagination-previous is-disabled" title="This is the first page">Previous</a>
-                    <a class="pagination-next">Next</a>
+                    <a class="pagination-previous" title="This is the first page" onClick={() => props.previouspage()}>Previous</a>
+                    <a class="pagination-next" onClick={() => props.nextpage()} >Next</a>
                     <ul class="pagination-list">
                         {// <li><a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a></li>
                         pagesArray1.map( (item) => {
-                                return <li><a class="pagination-link" aria-label="Goto page ">{item}</a></li>
+                                return <li><a onClick={() => props.pagechange(item)} class="pagination-link" aria-label="Goto page ">{item}</a></li>
                             })
                         }
                     </ul>
@@ -105,9 +105,10 @@
         const [status, setStatus] = React.useState("no status");
         const [species, setSpecies] = React.useState("no species");
         // const [number, setNumber] = React.useState(0);
-        const [numberOfResultsPerPage, setNumberOfResultsPerPage] = React.useState(2);
-        const [actualIndex, setActualIndex] = React.useState(0);
+        const [numberOfResultsPerPage, setNumberOfResultsPerPage] = React.useState(3);
+        const [actualPage, setActualPage] = React.useState(1);
         const [content2, setContent2] = React.useState([]);
+        const [actualIndex, setActualIndex] = React.useState(0);
         const [loading, setLoading] = React.useState(false);
 
         
@@ -208,20 +209,44 @@
             }
         ]
 
-        const initialIndex = numberOfResultsPerPage * actualIndex;
-        const lastIndex = initialIndex + numberOfResultsPerPage;
-        console.log(initialIndex);
-        console.log(lastIndex);
+
+        const numberOfPages = Math.ceil(content2.length/numberOfResultsPerPage);
+        const lastIndex = numberOfResultsPerPage * actualPage;
+        const initialIndex = lastIndex - numberOfResultsPerPage;
+
+        console.log(`numberOfPages ${numberOfPages}`);
+        console.log(`initialIndex ${initialIndex}`);
+        console.log(`lastIndex: ${lastIndex}`);
         const postsSliced = content2.slice(initialIndex, lastIndex);
+
         console.log(postsSliced);
         console.log(`totalNumberOfPost ${totalNumberOfPost}`);
-        const pageChange = (n) => { setActualIndex(n) }
+
+        function pagechange(n){
+            // e.preventDefault();
+            setActualPage(n);
+            console.log(`clicked on: ${n}`);
+            console.log(`actualPage: ${actualPage}`);
+        }
+        
         console.log(content2.length);
+
+        function nextpage(){
+            // e.preventDefault();
+            setActualPage(actualPage+1);
+            console.log("pagination working!");
+        }
+
+        function previouspage(){
+            // e.preventDefault();
+            setActualPage(actualPage-1);
+            console.log("pagination working!");
+        }
 
         return (
             <div>
                 <Cards content1={postsSliced} />
-                <Pagination totalNumberOfPost={content2.length} resultsPerPage={numberOfResultsPerPage} onClick={pageChange} />
+                <Pagination totalNumberOfPost={content2.length} resultsPerPage={numberOfResultsPerPage} pagechange={(n) => pagechange(n)} nextpage={nextpage} previouspage={previouspage} />
             </div>
         )
 
