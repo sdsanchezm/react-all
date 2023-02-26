@@ -97,6 +97,7 @@
             
             const [counter, setCounter] = React.useState(1);
             const [lists, setList] = React.useState(list1);
+            const [updateState, setUpdateState] = React.useState(false);
 
             // console.log(list[1]);
 
@@ -109,6 +110,10 @@
                 console.log(`idx: ${idx}`);
                 const newlist = lists.filter( (li) => li.id !== idx );
                 setList(newlist);
+            }
+
+            function handleEdit(idx){
+                setUpdateState(idx);
             }
 
             // Defining the AddList component =======================
@@ -143,6 +148,30 @@
                 )
             }
 
+            function Edit({item, lists, setList}){
+
+                function handleInput(event){
+                    const newlist = lists.map( (current) => (
+                        current.id === item.id ? {...current, [event.target.name]: event.target.value} : current
+                    ))
+                    setList(newlist);
+                }
+
+                return (
+                    <tr>
+                        <td><label name="id" >{item.id}</label></td>
+                        <td><input type="text" name="name" onChange={handleInput} value={item.name} /></td>
+                        <td><input type="text" name="price" onChange={handleInput} value={item.price} /></td>
+                        <td><button type="submit" >Save</button></td>
+                    </tr>
+                )
+            }
+
+            function handleUpdate(event){
+                event.preventDefault();
+                setUpdateState(false);
+            }
+
             return (
                 <div>
                     <h1>Basic Counter</h1>
@@ -150,11 +179,12 @@
                     <h2>{counter}</h2>
                         <div>
                             <AddList setList={setList} title="this is AddList" />
-                            <form>
+                            <form onSubmit={handleUpdate}>
                                 <table className="table table-hover">
                                     <tbody>
                                     {
                                         lists.map( (item) => (
+                                            updateState === item.id ? <Edit item={item} lists={lists} setList={setList} /> : 
                                             <tr>
                                                 <td>
                                                     {item.id}
@@ -166,7 +196,7 @@
                                                     {item.price}
                                                 </td>
                                                 <td>
-                                                    <button type="button" className="btn btn-sm btn-success" >Edit</button>
+                                                    <button type="button" className="btn btn-sm btn-success" onClick={() => handleEdit(item.id)}>Edit</button>
                                                     <button type="button" className="btn btn-sm btn-danger" onClick={() => handleDelete(item.id)} >Delete</button>
                                                 </td>
                                             </tr>
