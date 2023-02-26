@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>useRef Hook</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
@@ -12,7 +12,7 @@
   <body>
     <div class="container">
 
-        <h1>CounterApp</h1>
+        <h1>Update Object App</h1>
         <div id="app"></div>
 
     </div>
@@ -23,7 +23,7 @@
 
             // let history = React.useHistory();
 
-            function handleDelete(idx){
+            function handleDeleteNotInUse(idx){
                 
                 const k1 = Employees.map( (item) => {
                     return item.id;
@@ -37,7 +37,7 @@
                 // history('/');
             }
 
-            function handleEdit(idx){
+            function handleEditNotInUse(idx){
                 console.log(`id: ${idx}`);
             }
 
@@ -72,21 +72,21 @@
             )
         }
 
-        const Employees = [
+        const list = [
             {
                 id:"1",
-                name:"jamecho sanc",
-                employeeid:111222
+                name:"car 1 - jamecho",
+                price:21
             },
             {
                 id:2,
-                name:"jara sanc",
-                employeeid:222333
+                name:"car 2 - jara",
+                price:84
             },
             {
                 id:3,
-                name:"amparo sanc",
-                employeeid:444555
+                name:"car 3 - tiche",
+                price:63
             }
         ]
         
@@ -94,24 +94,86 @@
             
             const [counter, setCounter] = React.useState(1);
 
-            // <BrowserRouter>
-            //     <Routes>
-            //         <Route path="/ReactCrud9.html" element={<Home />} />
-            //     </Routes>
-            // </BrowserRouter>
+            const [lists, setLists] = React.useState(list);
+
 
             const add1 = () => {
                 setCounter(counter+1);
             }
+
+             function  handleDelete(idx) {
+                console.log(`idx: ${idx}`);
+                const newlist = lists.filter( (li) => { li.id != idx });
+                setLists(newlist);
+             }
+
+             function AddList({setList}){
+                const nameRef = useRef();
+                const priceRef = useRef();
+
+                function handleSubmit(event){
+                    event.preventDefault();
+                    const name = event.target.elements.name.value;
+                    const price = event.target.elements.price.value;
+                    const newlist ={
+                        id: 3,
+                        name,
+                        price
+                    }
+                    setList( (prevList) => {
+                        return prevList.concat(newlist)
+                    })
+                    nameRef.current.value = "";
+                    priceRef.current.value = "";
+                }
+                return (
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" name="name" placeholder="enter name" ref={nameRef} />
+                        <input type="text" name="price" placeholder="enter price" ref={priceRef} />
+                        <button type="submit">Add</button>
+                    </form>
+                )
+             }
 
             return (
                 <div>
                     <h1>Basic Counter</h1>
                     <button onClick={add1}>add</button>
                     <h2>{counter}</h2>
-                    <Home />
+                    <div>
+
+                        <div>
+                            <AddList setList = {setList} />
+                            <form>
+                                <table>
+                                    {
+                                        lists.map( (item) => {
+                                            <tr>
+                                                <td>
+                                                    {item.id}
+                                                </td>
+                                                <td>
+                                                    {item.name}
+                                                </td>
+                                                <td>
+                                                    {item.price}
+                                                </td>
+                                                <td>
+                                                    <button type="button" className="btn btn-success m-1" >Edit</button>
+                                                    <button type="button" className="btn btn-danger m-1" onClick={handleDelete(item.id)} >Delete</button>
+                                                </td>
+                                            </tr>
+                                        })
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    
+                    </div>
                 </div>
                 )
+
+
         }            
             
         ReactDOM.render(<App />, document.querySelector('#app'))

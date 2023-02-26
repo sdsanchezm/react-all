@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>useRef Hook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+        <h1>useRef Hook App</h1><hr>
+        <div id="app"></div>
+
+    </div>
+
+    <script type="text/babel">
+
+        function App(){
+
+            const [counter, setCounter] = React.useState(0);
+            const [name, setName] = React.useState("");
+            const inputRef = React.useRef(null);
+            const renderCount = React.useRef(1);
+            const previousName = React.useRef('');
+
+            function add1(){
+                setCounter(counter + 1);
+            }
+
+            React.useEffect( () => {
+                // inputRef.current.focus();
+                renderCount.current = renderCount.current + 1;
+                previousName.current = name;
+            }, [name]);
+           
+            return (
+                <div>
+                    <h1>useRef</h1>
+                    <input ref={inputRef} type="text" />
+                    <input value={name} onChange={(e)=>{setName(e.target.value)}} />
+                    <h2>name is {name} </h2>
+                    <h2>Previous name is {previousName.current} </h2>
+                    <h2>It has rendered {renderCount.current} times</h2>
+                    <button onClick={add1}>click</button>
+                    <h3> {counter}</h3>
+                </div>
+            )
+
+        }            
+            
+        ReactDOM.render(<App />, document.querySelector('#app'))
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
