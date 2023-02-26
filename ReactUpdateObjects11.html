@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>useRef Hook</title>
+    <title>updating objects</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
@@ -76,17 +76,17 @@
         // Defining the list  =======================
         const list1 = [
             {
-                id:"1",
+                id:333,
                 name:"car 1 - jamecho",
                 price:21
             },
             {
-                id:2,
+                id:421,
                 name:"car 2 - jara",
                 price:84
             },
             {
-                id:3,
+                id:998,
                 name:"car 3 - tiche",
                 price:63
             }
@@ -150,19 +150,47 @@
 
             function Edit({item, lists, setList}){
 
-                function handleInput(event){
+                // const nameRef = React.useRef();
+                // const priceRef = React.useRef();
+
+                const [namex, setNamex] = React.useState(item.name);
+                const [pricex, setPricex] = React.useState(item.price);
+                let renderTimes = React.useRef(0);
+
+                console.log(item.id);
+
+                function handleInput1(event){
                     const newlist = lists.map( (current) => (
-                        current.id === item.id ? {...current, [event.target.name]: event.target.value} : current
+                        current.id === item.id ? {...item, [event.target.name]: event.target.value} : current
                     ))
+                    setList(newlist);
+                }
+
+                function handleInput2(event){
+                    // renderTimes += 1;
+                    // console.log(`renderTimes: ${renderTimes}`);
+                    console.log(`item.id: ${item.id}`);
+                    let obj1 = {};
+                    const index = lists.map( (current) => {
+                        return current.id;
+                    }).indexOf(item.id);
+                    // setList(newlist);
+                    console.log(`index: ${index}`);
+
+                    obj1 = lists[index];
+                    obj1.name = namex;
+                    obj1.price = pricex;
+                    lists[index] = obj1;
+                    const newlist = lists;
                     setList(newlist);
                 }
 
                 return (
                     <tr>
                         <td><label name="id" >{item.id}</label></td>
-                        <td><input type="text" name="name" onChange={handleInput} value={item.name} /></td>
-                        <td><input type="text" name="price" onChange={handleInput} value={item.price} /></td>
-                        <td><button type="submit" >Save</button></td>
+                        <td><input type="text" name="name" onChange={(e) => setNamex(e.target.value)} value={namex} /></td>
+                        <td><input type="text" name="price" onChange={(e) => setPricex(e.target.value)} value={pricex} /></td>
+                        <td><button type="submit" onClick={handleInput2}>Save</button></td>
                     </tr>
                 )
             }
