@@ -14,9 +14,11 @@ function App() {
 
   return (
     <div className="App">
+      
       <h1>{number}</h1>
       <button onClick={add1}>plus 1</button>
       <button onClick={minus1}>minus 1</button>
+
     </div>
   );
 }
