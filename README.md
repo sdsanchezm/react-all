@@ -21,4 +21,10 @@ React tracking learning
 	- `cra-template`
 	- `cra-template-typescript`
 
-	
+- Some additional details:
+	```
+	npm uninstall -g create-react-app
+	npx clear-npx-cache
+	npm i create-react-app
+	npx create-react-app@latest my-app
+	```
