@@ -28,3 +28,23 @@ React tracking learning
 	npm i create-react-app
 	npx create-react-app@latest my-app
 	```
+
+- update packages in a project
+```
+npm i -g npm-check-updates
+ncu -u
+npm install
+```
+
+or 
+
+```
+npx npm-check-updates -u
+npm install
+```
+- and then, to fix:
+```
+npm audit fix
+```
+
+- pass
