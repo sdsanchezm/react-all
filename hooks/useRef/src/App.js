@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer, useMemo, useRef } from 'react';
-import CharacterCard from './components/CharacterCard';
+import UseRefComponent from './components/UseRefComponent';
 
 const initialState = {
   favorites: []
@@ -67,7 +67,7 @@ function superSlowFunction(var1){
   }
 };
 
-  return (
+  return ( 
     <div className="App">
 
       <input value={search} placeholder='type here' onChange={handleSearch1}></input>
@@ -95,7 +95,7 @@ function superSlowFunction(var1){
         {showProfile? <h4>hey</h4> : <h4>bye</h4>}
       </ProfileContext.Provider> */}
 
-
+      <UseRefComponent />
 
     </div>
 
