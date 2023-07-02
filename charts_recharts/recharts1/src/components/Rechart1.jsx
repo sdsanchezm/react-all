@@ -52,11 +52,11 @@ function Rechart1({data}) {
     return (
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
-            data={data}
+            data={data? data : data1 }
             margin={{
               top: 5,
-              right: 30,
-              left: 20,
+              right: 10,
+              left: 10,
               bottom: 5,
             }}
           >
@@ -65,7 +65,7 @@ function Rechart1({data}) {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="name" fill="#8884d8" />
+            {/* <Bar dataKey="name" fill="#8884d8" /> */}
             <Bar dataKey="priceUsd" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>

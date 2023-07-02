@@ -19,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <Rechart1 data={data} />
+      <Rechart1 />
     </div>
   )
 
